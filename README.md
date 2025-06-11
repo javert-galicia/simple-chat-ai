@@ -23,7 +23,7 @@ Chat simple en React + Vite + TypeScript + Tailwind que permite conversar con un
    ```sh
    npm run dev
    ```
-5. Accede a [http://localhost:5173](http://localhost:5173) en tu navegador.
+5. Accede a localhost en tu navegador.
 
 
 Desarrollado por Javert Galicia · 2025

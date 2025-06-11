@@ -65,6 +65,22 @@ function App() {
     }
   }
 
+  // Ejemplo de tool_call: getCurrentTime
+  const tools = [
+    {
+      type: "function",
+      function: {
+        name: "getCurrentTime",
+        description: "Devuelve la hora actual en formato CDMX",
+        parameters: {
+          type: "object",
+          properties: {},
+          required: []
+        }
+      }
+    }
+  ];
+
   // Llama a la API para obtener la respuesta del modelo
   async function sendMessage(e: React.FormEvent) {
     e.preventDefault()
@@ -77,7 +93,6 @@ function App() {
         { role: 'user', content: input }
       ])
       setInput('')
-      // Muestra el recuadro animado "Thinking..." antes de la respuesta
       setMessages(prev => [
         ...prev,
         { role: 'system', content: '__thinking__' }
@@ -87,18 +102,16 @@ function App() {
       thinkingIntervalRef.current = setInterval(() => {
         setThinkingDots(dots => (dots % 3) + 1)
       }, 500)
-      // Construye el historial para la API
       const chatHistory = [
         ...messages,
         { role: 'user', content: input }
       ].map(m => ({ role: m.role, content: m.content }))
-      // Asegura que siempre se envía el campo 'messages' aunque esté vacío
       const body = {
         model: modelName || undefined,
         messages: chatHistory.length > 0 ? chatHistory : [{ role: 'user', content: input }],
-        stream: true
+        stream: true,
+        tools // <-- aquí se agregan las tools
       }
-      // Llama a la API (modo streaming)
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -111,6 +124,8 @@ function App() {
       const reader = response.body.getReader()
       let aiMsg = ''
       let done = false
+      let toolCallId: string | null = null
+      let toolCallPending = false
       while (!done) {
         const { value, done: doneReading } = await reader.read()
         done = doneReading
@@ -122,10 +137,17 @@ function App() {
               if (data && data !== '[DONE]') {
                 try {
                   const delta = JSON.parse(data)
+                  // Tool call detection (OpenAI/LM Studio style)
+                  const toolCalls = delta.choices?.[0]?.delta?.tool_calls || delta.choices?.[0]?.tool_calls
+                  if (toolCalls && toolCalls.length > 0) {
+                    const call = toolCalls[0]
+                    if (call.function?.name === 'getCurrentTime') {
+                      toolCallId = call.id
+                      toolCallPending = true
+                    }
+                  }
                   let content = delta.choices?.[0]?.delta?.content || delta.choices?.[0]?.message?.content || ''
-                  // Elimina cualquier tag <think>...</think> del contenido
                   content = content.replace(/<think>(.|\n|\r)*?<\/think>/gi, '')
-                  // NO modificar espacios, deja el texto tal como lo envía la API
                   aiMsg += content
                 } catch {}
               }
@@ -133,8 +155,28 @@ function App() {
           })
         }
       }
+      // Si hubo un tool_call, responde con el resultado de la función
+      if (toolCallPending && toolCallId) {
+        // Hora en formato México (DD/MM/YYYY HH:mm:ss)
+        const now = new Date()
+        const mxTime = now.toLocaleString('es-MX', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+          timeZone: 'America/Mexico_City'
+        }).replace(',', '')
+        setMessages(prev => [
+          ...prev.filter(m => m.content !== '__thinking__'),
+          { role: 'assistant', content: `Hora actual (CDMX): ${mxTime}` }
+        ])
+        setLoading(false)
+        return
+      }
       if (thinkingIntervalRef.current) clearInterval(thinkingIntervalRef.current)
-      // Al terminar, muestra solo la respuesta completa
       setMessages(prev => [
         ...prev.filter(m => m.content !== '__thinking__'),
         { role: 'assistant', content: aiMsg }
