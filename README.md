@@ -25,19 +25,5 @@ Chat simple en React + Vite + TypeScript + Tailwind que permite conversar con un
    ```
 5. Accede a [http://localhost:5173](http://localhost:5173) en tu navegador.
 
-## Despliegue en GitHub Pages
-
-El sitio está preparado para ser desplegado en GitHub Pages desde la carpeta `docs/`.
-
-Para construir la versión de producción y copiar los archivos a `docs/`:
-
-```sh
-npm run build
-cp -r dist/* docs/
-```
-
-Luego configura GitHub Pages para servir desde la carpeta `/docs` en la rama principal.
-
----
 
 Desarrollado por Javert Galicia · 2025
