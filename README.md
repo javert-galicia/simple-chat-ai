@@ -5,8 +5,6 @@ Chat simple en React + Vite + TypeScript + Tailwind que permite conversar con un
 ## Características
 - Muestra el modelo cargado desde LM Studio.
 - Animación "Thinking..." mientras responde.
-- Para preguntas académicas/históricas busca primero en Wikipedia y, si no encuentra, consulta a la IA.
-- El texto se muestra tal como lo envía la API (solo se eliminan tags <think>).
 - Interfaz moderna y responsiva.
 
 ## Instalación y uso
@@ -25,6 +23,21 @@ Chat simple en React + Vite + TypeScript + Tailwind que permite conversar con un
    ```sh
    npm run dev
    ```
-5. Accede al localhost en tu navegador.
+5. Accede a [http://localhost:5173](http://localhost:5173) en tu navegador.
+
+## Despliegue en GitHub Pages
+
+El sitio está preparado para ser desplegado en GitHub Pages desde la carpeta `docs/`.
+
+Para construir la versión de producción y copiar los archivos a `docs/`:
+
+```sh
+npm run build
+cp -r dist/* docs/
+```
+
+Luego configura GitHub Pages para servir desde la carpeta `/docs` en la rama principal.
+
+---
 
 Desarrollado por Javert Galicia · 2025

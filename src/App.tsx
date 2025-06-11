@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
 import './App.css'
-import { isAcademicOrHistoricalQuestion, fetchWikipediaSummary, fetchWikipediaSmartSummary } from './components/WikipediaUtils'
 
 const API_URL = 'http://localhost:1234/v1/chat/completions'
 
@@ -23,7 +22,6 @@ function AboutDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
         <ul className="mb-2 text-gray-600 text-sm list-disc pl-5">
           <li>Muestra el modelo cargado desde LM Studio.</li>
           <li>Animación "Thinking..." mientras responde.</li>
-          <li>Para preguntas académicas/históricas busca primero en Wikipedia y, si no encuentra, consulta a la IA.</li>
         </ul>
         <p className="text-xs text-gray-400">Desarrollado por Javert Galicia · {new Date().getFullYear()}</p>
       </div>
@@ -79,33 +77,6 @@ function App() {
         { role: 'user', content: input }
       ])
       setInput('')
-      // Si es pregunta académica/histórica, busca en Wikipedia primero
-      if (isAcademicOrHistoricalQuestion(input)) {
-        setMessages(prev => [
-          ...prev,
-          { role: 'system', content: '__thinking__' }
-        ])
-        setThinkingDots(1)
-        if (thinkingIntervalRef.current) clearInterval(thinkingIntervalRef.current)
-        thinkingIntervalRef.current = setInterval(() => {
-          setThinkingDots(dots => (dots % 3) + 1)
-        }, 500)
-        // 1. Prueba búsqueda avanzada en Wikipedia
-        let wikiSummary = await fetchWikipediaSmartSummary(input)
-        // 2. Si no encuentra, prueba con la función anterior (título exacto)
-        if (!wikiSummary) wikiSummary = await fetchWikipediaSummary(input)
-        if (thinkingIntervalRef.current) clearInterval(thinkingIntervalRef.current)
-        setMessages(prev => prev.filter(m => m.content !== '__thinking__'))
-        if (wikiSummary) {
-          setMessages(prev => [
-            ...prev.filter(m => m.content !== '__thinking__'),
-            { role: 'assistant', content: wikiSummary }
-          ])
-          setLoading(false)
-          return
-        }
-        // Si no encuentra en Wikipedia, sigue con la IA normalmente
-      }
       // Muestra el recuadro animado "Thinking..." antes de la respuesta
       setMessages(prev => [
         ...prev,
