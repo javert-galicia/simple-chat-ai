@@ -13,7 +13,7 @@ Chat simple en React + Vite + TypeScript + Tailwind que permite conversar con un
 
 1. Clona este repositorio:
    ```sh
-   git clone <URL-del-repo>
+   git clone https://github.com/javert-galicia/simple-chat-ai
    cd simple-chat-ai
    ```
 2. Instala las dependencias:
