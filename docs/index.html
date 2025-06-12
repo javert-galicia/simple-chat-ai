@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple AI Chat</title>
     <link rel="icon" type="image/svg+xml" href="vite.svg" />
-    <meta name="description" content="Chat simple en React + Vite + TypeScript + Tailwind para conversar con una IA local usando LM Studio." />
+    <meta name="description" content="A simple chat app built with React + Vite + TypeScript + Tailwind to interact with a local AI using the AnythingLLM API." />
     <style>
       body { background: #f3f4f6; margin: 0; }
     </style>
@@ -14,35 +14,45 @@
     <main class="max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-2xl mt-16 mb-16 border border-blue-100 relative overflow-hidden">
       <header class="flex items-center gap-3 mb-6">
         <div>
-          <h1 class="text-4xl font-extrabold text-blue-700 drop-shadow">Simple AI Chat</h1>
-          <span class="text-xs text-gray-400">by Javert Galicia</span>
+          <h1 class="text-3xl font-bold mb-2">Simple AI Chat</h1>
+          <p class="mb-4 text-gray-700">A simple chat app built with React + Vite + TypeScript + Tailwind to interact with a local AI using the AnythingLLM API.</p>
+          <ul class="mb-4 text-gray-600 text-sm list-disc pl-5">
+            <li>Modern chat bubble interface, resizable chat area.</li>
+            <li>Dark mode toggle.</li>
+            <li>Shows loaded model and workspace from AnythingLLM.</li>
+            <li>Tool_call support (e.g., current time in CDMX).</li>
+            <li>AnythingLLM token is editable from the UI (no prompt dialogs).</li>
+            <li>Conversation is persistent (saved in localStorage).</li>
+            <li>Compatible with AnythingLLM's /api/v1/openai/chat/completions endpoint.</li>
+          </ul>
+          <div class="mb-4 text-xs text-gray-400">Developed by Javert Galicia · 2025</div>
         </div>
       </header>
-      <p class="mb-6 text-gray-700 text-lg">Chat simple en <span class="font-semibold text-blue-600">React</span> + <span class="font-semibold text-purple-600">Vite</span> + <span class="font-semibold text-cyan-600">TypeScript</span> + <span class="font-semibold text-teal-600">Tailwind</span> para conversar con una IA local usando la API de <span class="font-semibold text-pink-600">LM Studio</span>.</p>
-      <h2 class="text-2xl font-bold mt-8 mb-3 text-blue-800">¿Qué es Simple AI Chat?</h2>
-      <p class="mb-5 text-gray-700">Simple AI Chat es una aplicación web que permite conversar con una IA local de manera moderna, rápida y útil.</p>
-      <h3 class="text-lg font-semibold mt-6 mb-2 text-blue-700">Características principales</h3>
+      <p class="mb-6 text-gray-700 text-lg">A simple chat app built with <span class="font-semibold text-blue-600">React</span> + <span class="font-semibold text-purple-600">Vite</span> + <span class="font-semibold text-cyan-600">TypeScript</span> + <span class="font-semibold text-teal-600">Tailwind</span> to interact with a local AI using the AnythingLLM API.</p>
+      <h2 class="text-2xl font-bold mt-8 mb-3 text-blue-800">What is Simple AI Chat?</h2>
+      <p class="mb-5 text-gray-700">Simple AI Chat is a web application that allows you to chat with a local AI in a modern, fast, and useful way.</p>
+      <h3 class="text-lg font-semibold mt-6 mb-2 text-blue-700">Main features</h3>
       <ul class="list-disc pl-8 mb-6 text-gray-700 space-y-1">
-        <li>Muestra el modelo de IA cargado desde LM Studio.</li>
-        <li>Animación <span class="font-mono text-blue-500">"Thinking..."</span> mientras la IA responde.</li>
-        <li>Interfaz moderna, responsiva y fácil de usar.</li>
+        <li>Displays the AI model loaded from LM Studio.</li>
+        <li>Animation <span class="font-mono text-blue-500">"Thinking..."</span> while the AI is responding.</li>
+        <li>Modern, responsive, and easy-to-use interface.</li>
       </ul>
-      <h3 class="text-lg font-semibold mt-6 mb-2 text-blue-700">¿Cómo funciona?</h3>
+      <h3 class="text-lg font-semibold mt-6 mb-2 text-blue-700">How does it work?</h3>
       <ol class="list-decimal pl-8 mb-6 text-gray-700 space-y-1">
-        <li>El usuario escribe una pregunta o mensaje.</li>
-        <li>La consulta se envía a la IA local vía LM Studio.</li>
-        <li>El modelo responde en tiempo real, mostrando el texto tal como lo envía la API.</li>
+        <li>The user types a question or message.</li>
+        <li>The query is sent to the local AI via LM Studio.</li>
+        <li>The model responds in real-time, displaying the text as sent by the API.</li>
       </ol>
-      <h3 class="text-lg font-semibold mt-6 mb-2 text-blue-700">Tecnologías utilizadas</h3>
+      <h3 class="text-lg font-semibold mt-6 mb-2 text-blue-700">Technologies used</h3>
       <ul class="list-disc pl-8 mb-6 text-gray-700 space-y-1">
         <li>React + Vite</li>
         <li>TypeScript</li>
         <li>Tailwind CSS</li>
-        <li>LM Studio (API local)</li>
+        <li>LM Studio (Local API)</li>
       </ul>
-      <h3 class="text-lg font-semibold mt-6 mb-2 text-blue-700">Código fuente</h3>
-      <p class="mb-6 text-gray-700">El código fuente está disponible en este <a href="https://github.com/javert-galicia/simple-chat-ai">repositorio</a> Puedes clonar, modificar y desplegar tu propia instancia.</p>
-      <footer class="text-xs text-gray-400 mt-10 text-center">Desarrollado por Javert Galicia · 2025</footer>
+      <h3 class="text-lg font-semibold mt-6 mb-2 text-blue-700">Source code</h3>
+      <p class="mb-6 text-gray-700">The source code is available in this <a href="https://github.com/javert-galicia/simple-chat-ai">repository</a> You can clone, modify, and deploy your own instance.</p>
+      <footer class="text-xs text-gray-400 mt-10 text-center">Developed by Javert Galicia · 2025</footer>
     </main>
   </body>
 </html>

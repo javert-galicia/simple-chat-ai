@@ -1,29 +1,36 @@
 # Simple AI Chat
 
-Chat simple en React + Vite + TypeScript + Tailwind que permite conversar con una IA local usando la API de LM Studio.
+A simple chat app built with React + Vite + TypeScript + Tailwind to interact with a local AI using the AnythingLLM API.
 
-## Características
-- Muestra el modelo cargado desde LM Studio.
-- Animación "Thinking..." mientras responde.
-- Interfaz moderna y responsiva.
+## Features
 
-## Instalación y uso
+- Chat with local models via AnythingLLM (`/api/v1/openai/chat/completions`).
+- Shows the loaded model (from the `llm.model` field) and workspace name.
+- Modern chat bubble interface, resizable chat area.
+- Dark mode toggle.
+- Tool_call support (example: current time in CDMX).
+- AnythingLLM token is requested only once and can be edited from the UI (no prompt dialogs).
+- Token is saved in localStorage and displayed above the model info.
+- Conversation is persistent (saved in localStorage).
+- Clean, modular code with no unnecessary dependencies.
 
-1. Clona este repositorio:
-   ```sh
-   git clone https://github.com/javert-galicia/simple-chat-ai
-   cd simple-chat-ai
-   ```
-2. Instala las dependencias:
+## Usage
+
+1. Clone the repository and run:
    ```sh
    npm install
-   ```
-3. Inicia tu instancia local de LM Studio y carga un modelo compatible.
-4. Inicia la app:
-   ```sh
    npm run dev
    ```
-5. Accede a localhost en tu navegador.
+2. Open the app in your browser (default: http://localhost:5173).
+3. Enter your AnythingLLM token in the input field at the top.
+4. Start chatting with your local model and try tool_call (e.g., ask for the current time).
 
+## Requirements
+- AnythingLLM running locally and accessible at `http://localhost:3001`.
+- A loaded and functional model in AnythingLLM.
 
-Desarrollado por Javert Galicia · 2025
+## Demo
+You can see a demo in the `docs/` folder or deploy to GitHub Pages.
+
+---
+Developed by Javert Galicia · 2025
