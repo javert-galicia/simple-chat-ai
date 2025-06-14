@@ -30,7 +30,7 @@ A simple chat app built with React + Vite + TypeScript + Tailwind to interact wi
 - A loaded and functional model in AnythingLLM.
 
 ## Demo
-You can see a demo in the `docs/` folder or deploy to GitHub Pages.
+You can see a demo in the `docs/simplechatai` folder or deploy to GitHub Pages.
 
 ---
 Developed by Javert Galicia · 2025
